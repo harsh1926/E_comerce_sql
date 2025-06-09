@@ -1,0 +1,118 @@
+ -- 📦 E-Commerce Sales Analysis Project (SQL Part)
+-- Suitable for portfolio to showcase SQL querying, joins, aggregations, and grouping
+
+-- -----------------------------------
+-- STEP 1: Create Tables
+-- -----------------------------------
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    country VARCHAR(50)
+);
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(50),
+    price DECIMAL(10,2)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    quantity INT,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- -----------------------------------
+-- STEP 2: Insert Sample Data
+-- -----------------------------------
+
+INSERT INTO customers VALUES
+(1, 'Alice Kumar', 'India'),
+(2, 'Bob Smith', 'USA'),
+(3, 'Carlos Diaz', 'Mexico'),
+(4, 'Diana Wang', 'China');
+
+INSERT INTO products VALUES
+(101, 'Laptop', 'Electronics', 50000),
+(102, 'T-shirt', 'Fashion', 800),
+(103, 'Smartphone', 'Electronics', 30000),
+(104, 'Shoes', 'Fashion', 2000),
+(105, 'Book', 'Stationery', 500);
+
+INSERT INTO orders VALUES
+(1, 1, 101, 1, '2024-10-01'),
+(2, 2, 102, 2, '2024-11-15'),
+(3, 3, 103, 1, '2024-11-20'),
+(4, 4, 104, 3, '2024-12-05'),
+(5, 1, 105, 4, '2024-12-20'),
+(6, 2, 101, 1, '2025-01-10'),
+(7, 3, 105, 2, '2025-01-22'),
+(8, 4, 102, 1, '2025-02-01');
+
+-- -----------------------------------
+-- STEP 3: Analysis Queries
+-- -----------------------------------
+
+-- 1. Total Revenue
+SELECT SUM(p.price * o.quantity) AS total_revenue
+FROM orders o
+JOIN products p ON o.product_id = p.product_id;
+
+-- 2. Monthly Revenue Trend
+SELECT 
+    TO_CHAR(order_date, 'YYYY-MM') AS month,
+    SUM(p.price * o.quantity) AS revenue
+FROM orders o
+JOIN products p ON o.product_id = p.product_id
+GROUP BY TO_CHAR(order_date, 'YYYY-MM')
+ORDER BY month;
+
+-- 3. Top 5 Products by Revenue
+SELECT 
+    p.product_name,
+    SUM(p.price * o.quantity) AS revenue
+FROM orders o
+JOIN products p ON o.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY revenue DESC
+LIMIT 5;
+
+-- 4. Revenue by Product Category
+SELECT 
+    p.category,
+    SUM(p.price * o.quantity) AS revenue
+FROM orders o
+JOIN products p ON o.product_id = p.product_id
+GROUP BY p.category
+ORDER BY revenue DESC;
+
+-- 5. Revenue by Country
+SELECT 
+    c.country,
+    SUM(p.price * o.quantity) AS revenue
+FROM orders o
+JOIN products p ON o.product_id = p.product_id
+JOIN customers c ON o.customer_id = c.customer_id
+GROUP BY c.country
+ORDER BY revenue DESC;
+
+
+Done! ✅ I’ve created the complete SQL project titled "E-Commerce Sales Analysis" which includes:
+
+Table creation scripts
+
+Sample data insertion
+
+Real-world analysis queries: revenue trends, top products, category and country analysis
+
+
+You can directly copy the code from this link: 👉 Click here to view your SQL project
+
+Next Step (Optional): I can now generate the matching Excel dashboard using the SQL outputs if you want the full
+

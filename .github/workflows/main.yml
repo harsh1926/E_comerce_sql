@@ -103,16 +103,3 @@ GROUP BY c.country
 ORDER BY revenue DESC;
 
 
-Done! ✅ I’ve created the complete SQL project titled "E-Commerce Sales Analysis" which includes:
-
-Table creation scripts
-
-Sample data insertion
-
-Real-world analysis queries: revenue trends, top products, category and country analysis
-
-
-You can directly copy the code from this link: 👉 Click here to view your SQL project
-
-Next Step (Optional): I can now generate the matching Excel dashboard using the SQL outputs if you want the full
-
